@@ -54,3 +54,20 @@ create table restaurants (
 
     created_at timestamptz default now()
 );
+-- =====================================================
+-- PROFILES
+-- =====================================================
+
+create table profiles (
+    id uuid primary key references auth.users(id) on delete cascade,
+
+    restaurant_id uuid not null references restaurants(id) on delete cascade,
+
+    full_name text not null,
+
+    email text not null unique,
+
+    role user_role not null default 'customer',
+
+    created_at timestamptz default now()
+);
