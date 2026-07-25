@@ -39,3 +39,18 @@ create type notification_type as enum (
   'success',
   'error'
 );
+-- =====================================================
+-- RESTAURANTS
+-- =====================================================
+
+create table restaurants (
+    id uuid primary key default gen_random_uuid(),
+
+    name text not null,
+
+    address text,
+
+    phone text,
+
+    created_at timestamptz default now()
+);
