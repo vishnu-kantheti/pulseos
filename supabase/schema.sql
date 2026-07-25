@@ -160,3 +160,29 @@ create table orders (
 
     created_at timestamptz default now()
 );
+-- =====================================================
+-- ORDER ITEMS
+-- =====================================================
+
+create table order_items (
+    id uuid primary key default gen_random_uuid(),
+
+    order_id uuid not null
+        references orders(id)
+        on delete cascade,
+
+    menu_item_id uuid not null
+        references menu_items(id)
+        on delete restrict,
+
+    quantity integer not null
+        check (quantity > 0),
+
+    unit_price numeric(10,2) not null,
+
+    subtotal numeric(10,2) not null,
+
+    special_instructions text,
+
+    created_at timestamptz default now()
+);
