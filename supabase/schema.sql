@@ -127,3 +127,36 @@ create table restaurant_tables (
 
     unique (restaurant_id, table_number)
 );
+-- =====================================================
+-- ORDERS
+-- =====================================================
+
+create table orders (
+    id uuid primary key default gen_random_uuid(),
+
+    restaurant_id uuid not null
+        references restaurants(id)
+        on delete cascade,
+
+    customer_id uuid
+        references profiles(id)
+        on delete set null,
+
+    table_id uuid
+        references restaurant_tables(id)
+        on delete set null,
+
+    status order_status not null default 'pending',
+
+    total numeric(10,2) not null default 0,
+
+    ordered_at timestamptz default now(),
+
+    cooking_started_at timestamptz,
+
+    ready_at timestamptz,
+
+    served_at timestamptz,
+
+    created_at timestamptz default now()
+);
