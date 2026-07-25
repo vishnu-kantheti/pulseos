@@ -71,3 +71,35 @@ create table profiles (
 
     created_at timestamptz default now()
 );
+-- =====================================================
+-- MENU ITEMS
+-- =====================================================
+
+create table menu_items (
+    id uuid primary key default gen_random_uuid(),
+
+    restaurant_id uuid not null
+        references restaurants(id)
+        on delete cascade,
+
+    name text not null,
+
+    description text,
+
+    category text not null,
+
+    price numeric(10,2) not null,
+
+    prep_time integer not null default 15,
+
+    is_veg boolean default true,
+
+    spice_level integer default 1
+        check (spice_level between 1 and 5),
+
+    available boolean default true,
+
+    image_url text,
+
+    created_at timestamptz default now()
+);
