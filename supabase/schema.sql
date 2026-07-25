@@ -186,3 +186,81 @@ create table order_items (
 
     created_at timestamptz default now()
 );
+-- =====================================================
+-- INVENTORY
+-- =====================================================
+
+create table inventory (
+    id uuid primary key default gen_random_uuid(),
+
+    restaurant_id uuid not null
+        references restaurants(id)
+        on delete cascade,
+
+    ingredient_name text not null,
+
+    quantity numeric(10,2) not null default 0,
+
+    minimum_stock numeric(10,2) not null default 0,
+
+    unit text not null,
+
+    last_restocked_at timestamptz,
+
+    expiry_date date,
+
+    created_at timestamptz default now()
+);
+-- =====================================================
+-- NOTIFICATIONS
+-- =====================================================
+
+create table notifications (
+    id uuid primary key default gen_random_uuid(),
+
+    restaurant_id uuid not null
+        references restaurants(id)
+        on delete cascade,
+
+    user_id uuid
+        references profiles(id)
+        on delete cascade,
+
+    title text not null,
+
+    message text not null,
+
+    type notification_type not null default 'info',
+
+    is_read boolean not null default false,
+
+    created_at timestamptz default now()
+);
+-- =====================================================
+-- REVIEWS
+-- =====================================================
+
+create table reviews (
+    id uuid primary key default gen_random_uuid(),
+
+    restaurant_id uuid not null
+        references restaurants(id)
+        on delete cascade,
+
+    customer_id uuid
+        references profiles(id)
+        on delete set null,
+
+    order_id uuid
+        references orders(id)
+        on delete cascade,
+
+    rating integer not null
+        check (rating between 1 and 5),
+
+    comment text,
+
+    created_at timestamptz default now(),
+
+    unique(order_id)
+);
