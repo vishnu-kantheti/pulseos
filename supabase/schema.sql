@@ -103,3 +103,27 @@ create table menu_items (
 
     created_at timestamptz default now()
 );
+-- =====================================================
+-- RESTAURANT TABLES
+-- =====================================================
+
+create table restaurant_tables (
+    id uuid primary key default gen_random_uuid(),
+
+    restaurant_id uuid not null
+        references restaurants(id)
+        on delete cascade,
+
+    table_number integer not null,
+
+    capacity integer not null
+        check (capacity > 0),
+
+    status table_status not null default 'available',
+
+    qr_code text unique,
+
+    created_at timestamptz default now(),
+
+    unique (restaurant_id, table_number)
+);
