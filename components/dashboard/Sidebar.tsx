@@ -11,6 +11,7 @@ import {
   Boxes,
   Star,
   Settings,
+  Bot,
   LogOut,
 } from "lucide-react";
 
@@ -44,6 +45,11 @@ const menuItems = [
     name: "Reviews",
     href: "/dashboard/reviews",
     icon: Star,
+  },
+  {
+  name: "AI Assistant",
+  href: "/dashboard/ai",
+  icon: Bot,
   },
   {
     name: "Settings",
