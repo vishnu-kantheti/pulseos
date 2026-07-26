@@ -264,3 +264,79 @@ create table reviews (
 
     unique(order_id)
 );
+-- =====================================================
+-- INDEXES
+-- =====================================================
+
+create index idx_profiles_restaurant
+on profiles(restaurant_id);
+
+create index idx_menu_restaurant
+on menu_items(restaurant_id);
+
+create index idx_tables_restaurant
+on restaurant_tables(restaurant_id);
+
+create index idx_orders_restaurant
+on orders(restaurant_id);
+
+create index idx_orders_customer
+on orders(customer_id);
+
+create index idx_order_items_order
+on order_items(order_id);
+
+create index idx_inventory_restaurant
+on inventory(restaurant_id);
+
+create index idx_notifications_user
+on notifications(user_id);
+
+create index idx_reviews_restaurant
+on reviews(restaurant_id);
+-- =====================================================
+-- AUTO CREATE PROFILE
+-- =====================================================
+
+create or replace function public.handle_new_user()
+returns trigger
+language plpgsql
+security definer
+as $$
+begin
+    insert into public.profiles (
+        id,
+        restaurant_id,
+        full_name,
+        email,
+        role
+    )
+    values (
+        new.id,
+        (select id from restaurants limit 1),
+        coalesce(new.raw_user_meta_data->>'full_name', 'New User'),
+        new.email,
+        'customer'
+    );
+
+    return new;
+end;
+$$;
+
+create trigger on_auth_user_created
+after insert on auth.users
+for each row execute procedure public.handle_new_user();
+-- =====================================================
+-- SEED DATA
+-- =====================================================
+
+insert into restaurants (
+    name,
+    address,
+    phone
+)
+values (
+    'PulseOS Demo Restaurant',
+    'Guntur, Andhra Pradesh',
+    '+91 9876543210'
+);
