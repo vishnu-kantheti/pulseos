@@ -98,11 +98,9 @@ export default async function DashboardPage() {
 
   return (
     <main className="p-8 space-y-8">
-
       {/* HEADER */}
 
       <div className="rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white p-8 shadow-lg">
-
         <h1 className="text-4xl font-bold">
           🍽️ PulseOS Dashboard
         </h1>
@@ -110,13 +108,11 @@ export default async function DashboardPage() {
         <p className="mt-2 text-blue-100 text-lg">
           Smart Restaurant Management powered by AI
         </p>
-
       </div>
 
       {/* KPI CARDS */}
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5">
-
         <Card
           title="Orders"
           value={totalOrders ?? 0}
@@ -141,7 +137,6 @@ export default async function DashboardPage() {
           title="Low Stock"
           value={lowStockCount}
         />
-
       </div>
 
       {/* AI */}
@@ -151,7 +146,6 @@ export default async function DashboardPage() {
       {/* CHARTS */}
 
       <div className="grid lg:grid-cols-2 gap-6">
-
         <RevenueChart
           data={revenueData}
         />
@@ -159,25 +153,30 @@ export default async function DashboardPage() {
         <OrdersChart
           data={grouped}
         />
-
       </div>
 
       <InventoryChart
         data={inventory ?? []}
       />
-
     </main>
   );
 }
+
+type CardTitle =
+  | "Orders"
+  | "Revenue"
+  | "Menu"
+  | "Inventory"
+  | "Low Stock";
 
 function Card({
   title,
   value,
 }: {
-  title: string;
+  title: CardTitle;
   value: string | number;
 }) {
-  const icons = {
+  const icons: Record<CardTitle, React.ReactNode> = {
     Orders: (
       <ShoppingCart className="w-10 h-10 text-blue-600" />
     ),
@@ -197,25 +196,19 @@ function Card({
 
   return (
     <div className="rounded-2xl border bg-white p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-
       <div className="flex items-center justify-between">
-
         <div>
-
-          <p className="text-gray-500 text-sm">
+          <p className="text-sm text-gray-500">
             {title}
           </p>
 
-          <h2 className="text-3xl font-bold mt-2">
+          <h2 className="mt-2 text-3xl font-bold">
             {value}
           </h2>
-
         </div>
 
         {icons[title]}
-
       </div>
-
     </div>
   );
 }
