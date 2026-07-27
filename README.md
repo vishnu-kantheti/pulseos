@@ -30,6 +30,66 @@ Instead of using multiple disconnected systems, PulseOS enables restaurant owner
 The project was developed as part of **Vibeathon 6.0**.
 
 ---
+# 🏆 VibeAthon 6.0 Submission
+
+## Team Name
+
+VishnuCodes
+
+## Problem Statement
+
+Smart Restaurant Management System
+
+---
+
+## User Stories Completed
+
+### ✅ User Story 1 – Bronze
+- Modern and responsive restaurant management interface
+
+### ✅ User Story 2 – Silver
+- Secure authentication
+- Role-based dashboard
+
+### ✅ User Story 3 – Silver
+- Digital restaurant operations
+- Menu Management
+- Order Management
+- Inventory Management
+- Table Management
+
+### ✅ User Story 4 – Gold
+Restaurant Management Dashboard including:
+- Dashboard Analytics
+- Orders
+- Menu
+- Inventory
+- Reviews
+- Tables
+- Business Insights
+
+### ✅ User Story 5 – Platinum
+AI-powered features:
+- Restaurant AI Assistant
+- Business Insights
+- Operational Suggestions
+- Inventory Recommendations
+
+---
+
+## AI Usage
+
+PulseOS integrates AI using the OpenRouter API to provide an intelligent restaurant assistant capable of answering operational questions, generating business insights, suggesting inventory improvements, and helping restaurant managers make better decisions.
+
+---
+
+## Hosted Application
+
+https://pulseos-sage.vercel.app
+
+## GitHub Repository
+
+https://github.com/vishnu-kantheti/pulseos
 
 # ✨ Features
 
