@@ -177,7 +177,7 @@ function Card({
   title: string;
   value: string | number;
 }) {
-  const icons: Record<string, JSX.Element> = {
+  const icons = {
     Orders: (
       <ShoppingCart className="w-10 h-10 text-blue-600" />
     ),
