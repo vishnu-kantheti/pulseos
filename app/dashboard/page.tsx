@@ -4,6 +4,14 @@ import RevenueChart from "@/components/dashboard/RevenueChart";
 import OrdersChart from "@/components/dashboard/OrdersChart";
 import InventoryChart from "@/components/dashboard/InventoryChart";
 
+import {
+  ShoppingCart,
+  IndianRupee,
+  UtensilsCrossed,
+  Package,
+  AlertTriangle,
+} from "lucide-react";
+
 export default async function DashboardPage() {
   const supabase = await createClient();
 
@@ -58,7 +66,7 @@ export default async function DashboardPage() {
     })) ?? [];
 
   // ===========================
-  // ORDERS PIE CHART
+  // ORDER STATUS CHART
   // ===========================
 
   const { data: orderStatus } = await supabase
@@ -81,7 +89,7 @@ export default async function DashboardPage() {
   );
 
   // ===========================
-  // INVENTORY BAR CHART
+  // INVENTORY CHART
   // ===========================
 
   const { data: inventory } = await supabase
@@ -90,12 +98,25 @@ export default async function DashboardPage() {
 
   return (
     <main className="p-8 space-y-8">
-      <h1 className="text-3xl font-bold">
-        Dashboard
-      </h1>
+
+      {/* HEADER */}
+
+      <div className="rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white p-8 shadow-lg">
+
+        <h1 className="text-4xl font-bold">
+          🍽️ PulseOS Dashboard
+        </h1>
+
+        <p className="mt-2 text-blue-100 text-lg">
+          Smart Restaurant Management powered by AI
+        </p>
+
+      </div>
 
       {/* KPI CARDS */}
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5">
+
         <Card
           title="Orders"
           value={totalOrders ?? 0}
@@ -120,18 +141,31 @@ export default async function DashboardPage() {
           title="Low Stock"
           value={lowStockCount}
         />
+
       </div>
 
-      {/* AI INSIGHTS */}
+      {/* AI */}
+
       <AIInsights />
 
       {/* CHARTS */}
+
       <div className="grid lg:grid-cols-2 gap-6">
-        <RevenueChart data={revenueData} />
-        <OrdersChart data={grouped} />
+
+        <RevenueChart
+          data={revenueData}
+        />
+
+        <OrdersChart
+          data={grouped}
+        />
+
       </div>
 
-      <InventoryChart data={inventory ?? []} />
+      <InventoryChart
+        data={inventory ?? []}
+      />
+
     </main>
   );
 }
@@ -143,15 +177,45 @@ function Card({
   title: string;
   value: string | number;
 }) {
-  return (
-    <div className="rounded-xl border bg-white shadow-sm p-6">
-      <p className="text-sm text-gray-500">
-        {title}
-      </p>
+  const icons: Record<string, JSX.Element> = {
+    Orders: (
+      <ShoppingCart className="w-10 h-10 text-blue-600" />
+    ),
+    Revenue: (
+      <IndianRupee className="w-10 h-10 text-green-600" />
+    ),
+    Menu: (
+      <UtensilsCrossed className="w-10 h-10 text-orange-600" />
+    ),
+    Inventory: (
+      <Package className="w-10 h-10 text-purple-600" />
+    ),
+    "Low Stock": (
+      <AlertTriangle className="w-10 h-10 text-red-600" />
+    ),
+  };
 
-      <h2 className="mt-2 text-3xl font-bold">
-        {value}
-      </h2>
+  return (
+    <div className="rounded-2xl border bg-white p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+
+      <div className="flex items-center justify-between">
+
+        <div>
+
+          <p className="text-gray-500 text-sm">
+            {title}
+          </p>
+
+          <h2 className="text-3xl font-bold mt-2">
+            {value}
+          </h2>
+
+        </div>
+
+        {icons[title]}
+
+      </div>
+
     </div>
   );
 }

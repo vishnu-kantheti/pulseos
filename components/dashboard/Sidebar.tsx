@@ -47,9 +47,9 @@ const menuItems = [
     icon: Star,
   },
   {
-  name: "AI Assistant",
-  href: "/dashboard/ai",
-  icon: Bot,
+    name: "AI Assistant",
+    href: "/dashboard/ai",
+    icon: Bot,
   },
   {
     name: "Settings",
@@ -62,18 +62,26 @@ export default function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="w-64 min-h-screen border-r bg-white flex flex-col">
-      <div className="p-6 border-b">
-        <h1 className="text-2xl font-bold text-blue-600">
-          PulseOS
+    <aside className="w-72 min-h-screen bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 text-white flex flex-col shadow-xl">
+
+      {/* Logo */}
+
+      <div className="p-8 border-b border-slate-700">
+
+        <h1 className="text-3xl font-bold tracking-wide">
+          🍽️ PulseOS
         </h1>
 
-        <p className="text-sm text-gray-500">
-          AI Restaurant OS
+        <p className="mt-2 text-sm text-slate-300">
+          AI Restaurant Management
         </p>
+
       </div>
 
-      <nav className="flex-1 p-4 space-y-2">
+      {/* Navigation */}
+
+      <nav className="flex-1 p-5 space-y-2">
+
         {menuItems.map((item) => {
           const Icon = item.icon;
 
@@ -83,30 +91,44 @@ export default function Sidebar() {
             <Link
               key={item.name}
               href={item.href}
-              className={`flex items-center gap-3 rounded-lg px-4 py-3 transition
+              className={`group flex items-center gap-4 rounded-xl px-4 py-3 transition-all duration-200
                 ${
                   active
-                    ? "bg-blue-600 text-white"
-                    : "hover:bg-gray-100 text-gray-700"
+                    ? "bg-blue-600 shadow-lg text-white"
+                    : "text-slate-300 hover:bg-slate-700 hover:text-white hover:translate-x-1"
                 }`}
             >
               <Icon size={20} />
 
-              {item.name}
+              <span className="font-medium">
+                {item.name}
+              </span>
             </Link>
           );
         })}
+
       </nav>
 
-      <div className="border-t p-4">
-        <button
-          className="flex w-full items-center gap-3 rounded-lg px-4 py-3 text-red-600 hover:bg-red-50"
-        >
+      {/* Footer */}
+
+      <div className="border-t border-slate-700 p-5">
+
+        <button className="flex w-full items-center gap-4 rounded-xl px-4 py-3 text-red-400 hover:bg-red-500/20 transition">
+
           <LogOut size={20} />
 
           Logout
+
         </button>
+
+        <div className="mt-6 text-center text-xs text-slate-400">
+
+          PulseOS v1.0
+
+        </div>
+
       </div>
+
     </aside>
   );
 }
